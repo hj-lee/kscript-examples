@@ -1,2 +1,2 @@
-# kscripts-examples
+# kscript-examples
 Kscript testing scripts
