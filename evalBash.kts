@@ -3,7 +3,7 @@
 
 try {
     println("runBash")
-    "ls -l kscript".runBash()
+    "ls -ld . ".runBash()
     "kscript println\\(1\\)".runBash()
     "printf 'single quote'".runBash()
     "printf \"double quote\"".runBash()
@@ -15,7 +15,7 @@ try {
 
 try {
     println("evalBash")
-    println("ls -l kscript".evalBash())
+    println("ls -ld .".evalBash())
     println("kscript println\\(1\\)".evalBash())
     println("printf 'single quote'".evalBash())
     println("printf \"double quote\"".evalBash())
