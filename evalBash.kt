@@ -5,11 +5,19 @@ import java.util.concurrent.TimeUnit
 val isWindows = System.getProperty("os.name").contains("Windows")
 
 fun String.createBaseProcessBuilder(workingDir: File?): ProcessBuilder {
+    fun prepareWindowsCmd(cmd: String): String {
+        val newCmd = cmd.replace("\\\\", "\\\\\\\\")
+                .replace("\"", "\\\"")
+        // println("old: $cmd")
+        // println("new: $newCmd")
+        return newCmd
+    }
     val preamble = if (isWindows) arrayOf("cmd", "/c", "bash", "-c") else arrayOf("bash", "-c")
-    val pb = ProcessBuilder(*preamble, if (isWindows) replace("\"", "\\\"") else this)
+    val pb = ProcessBuilder(*preamble, if (isWindows) prepareWindowsCmd(this) else this)
     workingDir?.let { pb.directory(workingDir) } 
     return pb
 }
+
 
 fun String.runBash(workingDir: File? = null) {
     val pb = createBaseProcessBuilder(workingDir)
